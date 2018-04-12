@@ -1,0 +1,44 @@
+<!--index.wxml-->
+<view class="nav-tabs">
+  <block wx:for="{{tabData}}" wx:key="{{index}}">
+    <view id="{{index}}" class="tab-list  {{currentTab == index?'active':'default'}}" data-current="{{index}}" bindtap="swichNav">{{item.value}}</view>
+  </block>
+</view>
+
+<view class="play {{!isPlay ? 'play-img':'pause-img'}}" hover-class="play-click" data-key="" data-but="{{true}}" bindtap="playAudio"></view>
+
+<swiper current-item-id="{{currentTab}}" class="tab-content" autoplay="{{false}}"  bindchange="bindChange">  
+  <swiper-item wx:for="{{tabData}}" wx:key="{{index}}" item-id="{{index}}" class="">
+      <scroll-view
+        class='scroll-view'
+        scroll-y
+        bindscroll="scroll"
+        bindscrolltoupper="upper"
+        bindscrolltolower="lower"
+        bindscroll="scroll"
+        lower-threshold="100"
+        
+        
+        scroll-with-animation="true"
+      >
+        <!-- scroll-into-view="item-{{currentTab}}-{{item.toView}}" -->
+        <view class="scroll-view-loading" hidden="{{ !item.loading }}">
+          <view class="loading-text">一起听讲笑话 <view class="loading-hl"></view></view>
+        </view>
+  
+          <block wx:for="{{item.data}}" wx:key="id" wx:for-index="idx" wx:for-item="page">
+            <view hidden="{{item.loading}}"  id="item-{{currentTab}}-{{idx}}" 
+              class="list-item {{(item.toView == idx) && (currentTab == currentTabPlay) && isPlay?'item-play':''}}" 
+              data-key="{{idx}}" data-but="{{false}}" bindtap="playAudio" hover-class="item-click"
+            >
+              <view class="item-title">{{page.title}}</view>
+              <view class="item-content">{{page.content}}</view>
+            </view>
+          </block>
+
+        <view class="loading-more">
+          <text>{{item.getMoveText}}</text>
+        </view>
+      </scroll-view>
+  </swiper-item>
+</swiper>  
