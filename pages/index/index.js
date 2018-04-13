@@ -1,5 +1,5 @@
-import getList from '../../server/getList';
-// import getList from '../../server/getListLocal';
+// import getList from '../../server/getList';
+import getList from '../../server/getListLocal';
 const innerAudioContext = wx.createInnerAudioContext();
 innerAudioContext.src = ''
 
